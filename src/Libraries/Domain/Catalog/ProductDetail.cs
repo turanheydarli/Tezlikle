@@ -13,4 +13,5 @@ public class ProductDetail:BaseEntity
     public string SeoKeywords { get; set; }
     public int RegionId { get; set; }
     public Region Region { get; set; }
+    public ICollection<Comment> Comments { get; set; }
 }
