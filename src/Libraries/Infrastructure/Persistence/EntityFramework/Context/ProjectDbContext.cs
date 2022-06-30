@@ -1,4 +1,5 @@
 using System.Reflection;
+using Domain.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -35,11 +36,12 @@ namespace Infrastructure.Persistence.EntityFramework.Context;
             Configuration = configuration;
         }
 
-
         protected IConfiguration Configuration { get; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>();
+            
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
