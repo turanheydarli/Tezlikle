@@ -1,6 +1,8 @@
+using Domain.Common;
+
 namespace Domain.Catalog;
 
-public class ProductParam
+public class ProductParam:BaseEntity
 {
     public int ParamId { get; set; }
     public Param Param { get; set; }

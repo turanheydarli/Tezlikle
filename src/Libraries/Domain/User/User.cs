@@ -7,7 +7,10 @@ public class User:BaseEntity
     public string Username { get; set; }
     public string Slug { get; set; }
     public string Email { get; set; }
+    public string About { get; set; }
     public bool EmailStatus { get; set; }
+    public bool IsDeleted { get; set; }
+    public string RefreshToken { get; set; }
     public string UserType { get; set; }
     public string Avatar { get; set; }
     public string CoverImage { get; set; }
@@ -20,5 +23,5 @@ public class User:BaseEntity
     public byte[] PasswordHash { get; set; }
     public byte[] PasswordSalt { get; set; }
 
-    public ICollection<UserOperationClaim> OperationClaims { get; set; }
+    public ICollection<UserOperationClaim> UserOperationClaims { get; set; }
 }

@@ -1,7 +1,22 @@
-var builder = WebApplication.CreateBuilder(args);
+using Application.Core;
+using Application.DependencyResolvers.Autofac;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+
+var builder = WebApplication.CreateBuilder(args); 
+
+// Add Autofac Factory
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).
+    ConfigureContainer<ContainerBuilder>(containerBuilder =>
+    {
+        containerBuilder.RegisterModule(new AutofacBusinessModule());
+    });
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddCustomizedDataStore();
+builder.Services.InjectApplicationServices();
+builder.Services.AddApplication(builder.Configuration);
 
 var app = builder.Build();
 

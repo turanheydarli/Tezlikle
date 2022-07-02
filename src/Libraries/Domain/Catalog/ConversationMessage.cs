@@ -1,6 +1,8 @@
+using Domain.Common;
+
 namespace Domain.Catalog;
 
-public class ConversationMessage
+public class ConversationMessage:BaseEntity
 {
     public int SenderId { get; set; }
     public User.User Sender { get; set; }

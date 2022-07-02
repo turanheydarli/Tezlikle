@@ -1,4 +1,7 @@
 using System.Reflection;
+using Domain.Catalog;
+using Domain.Languages;
+using Domain.Media;
 using Domain.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -38,9 +41,31 @@ namespace Infrastructure.Persistence.EntityFramework.Context;
 
         protected IConfiguration Configuration { get; }
 
+        public DbSet<User> Users { get; set; }
+        public DbSet<AdSpace> AdSpaces { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Conversation> Conversations { get; set; }
+        public DbSet<ConversationMessage> ConversationMessages { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
+        public DbSet<GeneralSetting> GeneralSettings { get; set; }
+        public DbSet<Param> Params { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductDetail> ProductDetails { get; set; }
+        public DbSet<ProductParam> ProductParams { get; set; }
+        public DbSet<Region> Regions { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<Translate> Translates { get; set; }
+        public DbSet<OperationClaim> OperationClaims { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>();
+            modelBuilder.Entity<Product>()
+                .HasOne(a => a.ProductDetail)
+                .WithOne(a => a.Product)
+                .HasForeignKey<ProductDetail>(c => c.ProductId);
             
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
@@ -51,7 +76,7 @@ namespace Infrastructure.Persistence.EntityFramework.Context;
             {
                 base.OnConfiguring(
                     optionsBuilder.UseNpgsql(
-                            Configuration.GetConnectionString("DArchPgContext") 
+                            Configuration.GetConnectionString("PgSql") 
                             ?? throw new NullReferenceException("Assign connection string in appsettings.json")
                             ).EnableSensitiveDataLogging());
             }
