@@ -1,7 +1,9 @@
 using Application.Models.Users;
 using Application.Services.Catalog.Interfaces;
+using Application.Services.Media.Interfaces;
 using Application.ValidationRules.FluentValidation.Users;
 using AutoMapper;
+using Domain.Media;
 using Domain.User;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -18,14 +20,16 @@ public class UserService:IUserService
     #region Fields
     private IRepository<User> _userRepository;
     private IMapper _mapper;
+    private IPictureService _pictureService;
     #endregion
 
     #region Ctor
 
-    public UserService(IRepository<User> userRepository, IMapper mapper)
+    public UserService(IRepository<User> userRepository, IMapper mapper, IPictureService pictureService)
     {
         _userRepository = userRepository;
         _mapper = mapper;
+        _pictureService = pictureService;
     }
     #endregion
     
@@ -38,10 +42,10 @@ public class UserService:IUserService
         if (ruleError != null) 
             return new ErrorDataResult<UserModel>(message:ruleError.Message);
 
-        userModel.Avatar = MediaDefaults.DefaultAvatarImage;
-        userModel.CoverImage = MediaDefaults.DefaultCoverImage;
+        userModel.Avatar = _pictureService.SetDefaultPicture(MediaDefaults.DefaultAvatarImage);
+        userModel.CoverImage = _pictureService.SetDefaultPicture(MediaDefaults.DefaultCoverImage);
         
-        User user = _userRepository.Insert(_mapper.Map<User>(userModel));
+        var user = _userRepository.Insert(_mapper.Map<User>(userModel));
         
         if (user.Id == 0)
         {

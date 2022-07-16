@@ -1,6 +1,6 @@
 using Application.Utilities.Security.JWT;
 
-namespace Application.Services.Authorization;
+namespace Application.Services.Authentication;
 
 /// <summary>
 /// It is the return data of the login function.

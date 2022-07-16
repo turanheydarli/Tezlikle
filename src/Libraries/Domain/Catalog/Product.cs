@@ -1,9 +1,13 @@
 using Domain.Common;
+using Domain.Media;
 
 namespace Domain.Catalog;
 
 public class Product:BaseEntity
 {
+    public int Id { get; set; }
+    public DateTime CreatedTime { get; set; } = DateTime.UtcNow;
+    public DateTime? UpdatedTime { get; set; }
     public string Slug { get; set; }
     public string Sku { get; set; }
     public int CategoryId { get; set; }
@@ -22,7 +26,8 @@ public class Product:BaseEntity
     public bool IsDeleted { get; set; }
     public bool IsDraft { get; set; }
     public string ContactNumber { get; set; }
-
     public int ProductDetailId { get; set; }
     public ProductDetail ProductDetail { get; set; }
+    
+    
 }

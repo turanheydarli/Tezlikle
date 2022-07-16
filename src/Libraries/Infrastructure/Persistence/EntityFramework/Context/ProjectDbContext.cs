@@ -54,7 +54,7 @@ namespace Infrastructure.Persistence.EntityFramework.Context;
         public DbSet<ProductDetail> ProductDetails { get; set; }
         public DbSet<ProductParam> ProductParams { get; set; }
         public DbSet<Region> Regions { get; set; }
-        public DbSet<Image> Images { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Translate> Translates { get; set; }
         public DbSet<OperationClaim> OperationClaims { get; set; }
@@ -62,10 +62,13 @@ namespace Infrastructure.Persistence.EntityFramework.Context;
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             modelBuilder.Entity<Product>()
                 .HasOne(a => a.ProductDetail)
                 .WithOne(a => a.Product)
                 .HasForeignKey<ProductDetail>(c => c.ProductId);
+
+       
             
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }

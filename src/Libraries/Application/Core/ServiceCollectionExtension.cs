@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.CrossCuttingConcerns.Caching;
+using Shared.CrossCuttingConcerns.Caching.Microsoft;
+using Shared.Utilities;
 
 namespace Application.Core;
 
@@ -18,7 +21,10 @@ public static class ServiceCollectionExtension
     {
         services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+        services.AddSingleton<ICacheManager, MemoryCacheManager>();
+        
+        ServiceTool.Create(services, services.BuildServiceProvider());
+        
         return services;
     }
     public static IServiceCollection AddCustomizedDataStore(this IServiceCollection services)
@@ -45,7 +51,7 @@ public static class ServiceCollectionExtension
         {
             options.LoginPath = "/explore";
             options.LogoutPath = "/auth/logout";
-            options.Cookie.Name = "UZ_User";
+            options.Cookie.Name = "uz_user";
             options.ClaimsIssuer = tokenOptions.Issuer;
         });
 

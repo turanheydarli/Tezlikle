@@ -7,6 +7,7 @@ public enum MaxLengthSize
     Name = 50,
     Email = 50,
     Currency = 3,
-    Content = 3000
-    
+    Content = 3000,
+    Keyword = 255,
+    Slug = 120
 }

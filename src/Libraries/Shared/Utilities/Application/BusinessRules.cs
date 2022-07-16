@@ -2,17 +2,15 @@ using Shared.Utilities.Results;
 
 namespace Shared.Utilities.Application;
 
-public class BusinessRules
+public static class BusinessRules
 {
+    /// <summary>
+    /// Runs all rules of operation
+    /// </summary>
+    /// <param name="logics"></param>
+    /// <returns></returns>
     public static IResult Run(params IResult[] logics)
     {
-        foreach (IResult logic in logics)
-        {
-            if (!logic.Success)
-            {
-                return logic;
-            }
-        }
-        return null;
+        return logics.FirstOrDefault(logic => !logic.Success);
     }
 }

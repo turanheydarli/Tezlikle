@@ -15,8 +15,8 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddCustomizedDataStore();
-builder.Services.InjectApplicationServices();
 builder.Services.AddApplication(builder.Configuration);
+builder.Services.InjectApplicationServices();
 
 var app = builder.Build();
 
@@ -33,6 +33,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

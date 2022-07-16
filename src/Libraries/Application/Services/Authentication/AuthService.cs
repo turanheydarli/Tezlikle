@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using Application.Models.Users;
-using Application.Services.Authorization.Interfaces;
+using Application.Services.Authentication.Interfaces;
 using Application.Services.Catalog.Interfaces;
 using Application.Utilities.Security.Hashing;
 using Application.Utilities.Security.JWT;
@@ -16,16 +16,16 @@ using Shared.Utilities.Results;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace Application.Services.Authorization;
+namespace Application.Services.Authentication;
 
 public class AuthService:IAuthService
 {
    #region Fields
 
-   private IHttpContextAccessor _httpContextAccessor;
-   private IUserService _userService;
-   private IMapper _mapper;
-   private ITokenHelper _tokenHelper;
+   private readonly IHttpContextAccessor _httpContextAccessor;
+   private readonly IUserService _userService;
+   private readonly IMapper _mapper;
+   private readonly ITokenHelper _tokenHelper;
    #endregion
 
    #region Ctor
@@ -44,9 +44,7 @@ public class AuthService:IAuthService
    [ValidationAspect(typeof(UserRegisterModelValidator))]
    public IResult Register(UserRegisterModel registerModel)
    {
-      byte[] passwordHash, passwordSalt;
-      
-      HashingHelper.CreatePasswordHash(registerModel.Password, out passwordHash,out passwordSalt);
+      HashingHelper.CreatePasswordHash(registerModel.Password, out var passwordHash,out var passwordSalt);
       
       var user = _userService.CreateUser(new UserModel
       {
@@ -55,7 +53,7 @@ public class AuthService:IAuthService
          PasswordSalt = passwordSalt,
          Email = registerModel.Email,
          FirstName = registerModel.FirstName,
-         LastName = registerModel.LastName,
+         LastName = registerModel.LastName
       });
 
       if (!user.Success)
@@ -66,9 +64,10 @@ public class AuthService:IAuthService
       return new SuccessResult(Messages.UserRegisterSuccessed);
    }
 
+   [ValidationAspect(typeof(UserLoginModelValidator))]
    public UserLoginResult Login(UserLoginModel loginModel)
    {
-      IDataResult<UserModel> user = _userService.GetUserByUsername(loginModel.Username);
+      var user = _userService.GetUserByUsername(loginModel.Username);
 
       if (!user.Success || user.Data == null)
       {
@@ -93,9 +92,9 @@ public class AuthService:IAuthService
          };
       }
 
-      List<Claim> claims = new List<Claim>();
+      var claims = new List<Claim>();
 
-      string[] roles = _userService.GetClaims(user.Data.Username).Data.Select(c => c.Name).ToArray();
+      var roles = _userService.GetClaims(user.Data.Username).Data.Select(c => c.Name).ToArray();
 
       claims.AddNameIdentifier(user.Data.Username);
       claims.AddName(user.Data.Username);
@@ -120,6 +119,13 @@ public class AuthService:IAuthService
          AccessToken = accessToken
       };
 
+   }
+
+   public IResult Logout()
+   {
+      _httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+      return new SuccessResult(Messages.LoggedOut);
    }
 
    public UserLoginResult LoginWithRefreshToken(string refreshToken)

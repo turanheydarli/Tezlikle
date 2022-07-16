@@ -16,46 +16,14 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
+                    Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Code = table.Column<string>(type: "text", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AdSpaces", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Slug = table.Column<string>(type: "text", nullable: true),
-                    ParentId = table.Column<int>(type: "integer", nullable: false),
-                    Title = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
-                    Keywords = table.Column<string>(type: "text", nullable: true),
-                    CategoryOrder = table.Column<int>(type: "integer", nullable: false),
-                    HomepageOrder = table.Column<int>(type: "integer", nullable: false),
-                    IsFeatured = table.Column<bool>(type: "boolean", nullable: false),
-                    FeaturedOrder = table.Column<int>(type: "integer", nullable: false),
-                    Visibility = table.Column<bool>(type: "boolean", nullable: false),
-                    Image = table.Column<string>(type: "text", nullable: true),
-                    ShowImageOnNavigation = table.Column<bool>(type: "boolean", nullable: false),
-                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Categories_Categories_ParentId",
-                        column: x => x.ParentId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,7 +38,7 @@ namespace Infrastructure.Migrations
                     CurrencyFormat = table.Column<string>(type: "text", nullable: true),
                     Status = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -119,7 +87,7 @@ namespace Infrastructure.Migrations
                     IndexPromotedProductsCount = table.Column<bool>(type: "boolean", nullable: false),
                     IndexLatestProductsCount = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -135,7 +103,7 @@ namespace Infrastructure.Migrations
                     Name = table.Column<string>(type: "text", nullable: true),
                     Code = table.Column<string>(type: "text", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -150,7 +118,7 @@ namespace Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -167,7 +135,7 @@ namespace Infrastructure.Migrations
                     Longitude = table.Column<decimal>(type: "numeric", nullable: false),
                     Latitude = table.Column<decimal>(type: "numeric", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -175,35 +143,59 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Translates",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Username = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    Slug = table.Column<string>(type: "text", nullable: true),
-                    Email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    About = table.Column<string>(type: "character varying(3000)", maxLength: 3000, nullable: true),
-                    EmailStatus = table.Column<bool>(type: "boolean", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    RefreshToken = table.Column<string>(type: "text", nullable: true),
-                    UserType = table.Column<string>(type: "text", nullable: true),
-                    Avatar = table.Column<string>(type: "text", nullable: true),
-                    CoverImage = table.Column<string>(type: "text", nullable: true),
-                    CoverImageType = table.Column<string>(type: "text", nullable: true),
-                    FirstName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
-                    LastName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
-                    ShopName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    LastSeen = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    PasswordHash = table.Column<byte[]>(type: "bytea", nullable: true),
-                    PasswordSalt = table.Column<byte[]>(type: "bytea", nullable: true),
+                    LanguageId = table.Column<int>(type: "integer", nullable: false),
+                    Code = table.Column<string>(type: "text", nullable: true),
+                    Value = table.Column<string>(type: "text", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Translates", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Translates_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Slug = table.Column<string>(type: "text", nullable: true),
+                    ParentId = table.Column<int>(type: "integer", nullable: true),
+                    Title = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    Keywords = table.Column<string>(type: "text", nullable: true),
+                    CategoryOrder = table.Column<int>(type: "integer", nullable: false),
+                    HomepageOrder = table.Column<int>(type: "integer", nullable: false),
+                    ShowProductsOnIndex = table.Column<bool>(type: "boolean", nullable: false),
+                    IsFeatured = table.Column<bool>(type: "boolean", nullable: false),
+                    FeaturedOrder = table.Column<int>(type: "integer", nullable: false),
+                    Visibility = table.Column<bool>(type: "boolean", nullable: false),
+                    PictureId = table.Column<int>(type: "integer", nullable: false),
+                    ShowImageOnNavigation = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Categories_Categories_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Categories",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -215,7 +207,7 @@ namespace Infrastructure.Migrations
                     Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     CategoryId = table.Column<int>(type: "integer", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -251,7 +243,7 @@ namespace Infrastructure.Migrations
                     ContactNumber = table.Column<string>(type: "text", nullable: true),
                     ProductDetailId = table.Column<int>(type: "integer", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -271,24 +263,172 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Translates",
+                name: "ProductParams",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    LanguageId = table.Column<int>(type: "integer", nullable: false),
-                    Code = table.Column<string>(type: "text", nullable: true),
+                    ParamId = table.Column<int>(type: "integer", nullable: false),
                     Value = table.Column<string>(type: "text", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Translates", x => x.Id);
+                    table.PrimaryKey("PK_ProductParams", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Translates_Languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Languages",
+                        name: "FK_ProductParams_Params_ParamId",
+                        column: x => x.ParamId,
+                        principalTable: "Params",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ProductId = table.Column<int>(type: "integer", nullable: false),
+                    Title = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "character varying(3000)", maxLength: 3000, nullable: false),
+                    SeoTitle = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    SeoDescription = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    SeoKeywords = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    RegionId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductDetails_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductDetails_Regions_RegionId",
+                        column: x => x.RegionId,
+                        principalTable: "Regions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Pictures",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ImageDefault = table.Column<string>(type: "text", nullable: true),
+                    ImageBig = table.Column<string>(type: "text", nullable: true),
+                    ImageSmall = table.Column<string>(type: "text", nullable: true),
+                    MimeType = table.Column<string>(type: "text", nullable: true),
+                    PictureType = table.Column<int>(type: "integer", nullable: false),
+                    IsMain = table.Column<bool>(type: "boolean", nullable: false),
+                    ProductDetailId = table.Column<int>(type: "integer", nullable: true),
+                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pictures", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Pictures_ProductDetails_ProductDetailId",
+                        column: x => x.ProductDetailId,
+                        principalTable: "ProductDetails",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Username = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Slug = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    About = table.Column<string>(type: "character varying(3000)", maxLength: 3000, nullable: true),
+                    EmailStatus = table.Column<bool>(type: "boolean", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    RefreshToken = table.Column<string>(type: "text", nullable: true),
+                    UserType = table.Column<string>(type: "text", nullable: true),
+                    AvatarId = table.Column<int>(type: "integer", nullable: false),
+                    CoverImageId = table.Column<int>(type: "integer", nullable: false),
+                    CoverImageType = table.Column<string>(type: "text", nullable: true),
+                    FirstName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    LastName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    ShopName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    LastSeen = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    PasswordHash = table.Column<byte[]>(type: "bytea", nullable: true),
+                    PasswordSalt = table.Column<byte[]>(type: "bytea", nullable: true),
+                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Pictures_AvatarId",
+                        column: x => x.AvatarId,
+                        principalTable: "Pictures",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Users_Pictures_CoverImageId",
+                        column: x => x.CoverImageId,
+                        principalTable: "Pictures",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ParentId = table.Column<int>(type: "integer", nullable: false),
+                    ProductId = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    Email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Content = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    IpAdress = table.Column<string>(type: "text", nullable: true),
+                    Status = table.Column<bool>(type: "boolean", nullable: false),
+                    ProductDetailId = table.Column<int>(type: "integer", nullable: true),
+                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_Comments_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Comments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comments_ProductDetails_ProductDetailId",
+                        column: x => x.ProductDetailId,
+                        principalTable: "ProductDetails",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Comments_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comments_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -303,7 +443,7 @@ namespace Infrastructure.Migrations
                     ReceiverId = table.Column<int>(type: "integer", nullable: false),
                     Subject = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -331,7 +471,7 @@ namespace Infrastructure.Migrations
                     UserId = table.Column<int>(type: "integer", nullable: false),
                     OperationClaimId = table.Column<int>(type: "integer", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -351,86 +491,6 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductParams",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ParamId = table.Column<int>(type: "integer", nullable: false),
-                    Value = table.Column<string>(type: "text", nullable: true),
-                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductParams", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProductParams_Params_ParamId",
-                        column: x => x.ParamId,
-                        principalTable: "Params",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Images",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ProductId = table.Column<int>(type: "integer", nullable: false),
-                    ImageDefault = table.Column<string>(type: "text", nullable: true),
-                    ImageBig = table.Column<string>(type: "text", nullable: true),
-                    ImageSmall = table.Column<string>(type: "text", nullable: true),
-                    IsMain = table.Column<bool>(type: "boolean", nullable: false),
-                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Images", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Images_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductDetails",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ProductId = table.Column<int>(type: "integer", nullable: false),
-                    Title = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "character varying(3000)", maxLength: 3000, nullable: false),
-                    SeoTitle = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    SeoDescription = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
-                    SeoKeywords = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    RegionId = table.Column<int>(type: "integer", nullable: false),
-                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductDetails", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProductDetails_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductDetails_Regions_RegionId",
-                        column: x => x.RegionId,
-                        principalTable: "Regions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ConversationMessages",
                 columns: table => new
                 {
@@ -444,7 +504,7 @@ namespace Infrastructure.Migrations
                     IsRead = table.Column<bool>(type: "boolean", nullable: false),
                     DeletedUserId = table.Column<int>(type: "integer", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -475,61 +535,45 @@ namespace Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Comments",
-                columns: table => new
+            migrationBuilder.InsertData(
+                table: "AdSpaces",
+                columns: new[] { "Id", "Code", "CreatedTime", "Name", "UpdatedTime" },
+                values: new object[,]
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ParentId = table.Column<int>(type: "integer", nullable: false),
-                    ProductId = table.Column<int>(type: "integer", nullable: false),
-                    UserId = table.Column<int>(type: "integer", nullable: false),
-                    Email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    Content = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
-                    IpAdress = table.Column<string>(type: "text", nullable: true),
-                    Status = table.Column<bool>(type: "boolean", nullable: false),
-                    ProductDetailId = table.Column<int>(type: "integer", nullable: true),
-                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Comments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Comments_Comments_ParentId",
-                        column: x => x.ParentId,
-                        principalTable: "Comments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Comments_ProductDetails_ProductDetailId",
-                        column: x => x.ProductDetailId,
-                        principalTable: "ProductDetails",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Comments_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Comments_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    { 1, "", new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(1959), "index_1", null },
+                    { 2, "", new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(1995), "index_2", null },
+                    { 3, "", new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2002), "products", null },
+                    { 4, "", new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2006), "products_sidebar", null },
+                    { 5, "", new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2011), "product", null },
+                    { 6, "", new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2021), "product_bottom", null },
+                    { 7, "", new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2026), "profile", null },
+                    { 8, "", new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2030), "profile_sidebar", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "GeneralSettings",
                 columns: new[] { "Id", "AppName", "CreatedTime", "CustomCssCodes", "CustomJsCodes", "EmailVerification", "FacebookAppId", "FacebookAppSecret", "Favicon", "FeaturedCategories", "GoogleAnalytics", "GoogleClientId", "GoogleClientSecret", "IndexLatestProductsCount", "IndexPromotedProductsCount", "Logo", "LogoEmail", "MailHost", "MailPassword", "MailPort", "MailProtocol", "MailTitle", "MailUsername", "MenuLimit", "PromotedProducts", "RecaptchaLang", "RecaptchaSecretKey", "RecaptchaSiteKey", "SiteColor", "UpdatedTime", "Version", "WatermarkHorAlignment", "WatermarkImageLarge", "WatermarkImageMid", "WatermarkImageSmall", "WatermarkProductImages", "WatermarkThumbImages", "WatermarkVrtAlignment" },
-                values: new object[] { 1, "Tezlikle", new DateTime(2022, 7, 2, 14, 35, 48, 93, DateTimeKind.Utc).AddTicks(2117), null, null, false, null, null, "", true, null, null, null, false, false, "", null, null, null, null, null, null, null, 0, false, null, null, null, "#FFFF", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "", null, null, null, null, false, false, null });
+                values: new object[] { 1, "Tezlikle", new DateTime(2022, 7, 10, 9, 55, 23, 386, DateTimeKind.Utc).AddTicks(861), null, null, false, null, null, "", true, null, null, null, false, false, "", null, null, null, null, null, null, null, 0, false, null, null, null, "#FFFF", null, "", null, null, null, null, false, false, null });
+
+            migrationBuilder.InsertData(
+                table: "Pictures",
+                columns: new[] { "Id", "CreatedTime", "ImageBig", "ImageDefault", "ImageSmall", "IsMain", "MimeType", "PictureType", "ProductDetailId", "UpdatedTime" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2022, 7, 10, 9, 55, 23, 386, DateTimeKind.Utc).AddTicks(3353), null, "avatar_default.png", null, false, null, 0, null, null },
+                    { 2, new DateTime(2022, 7, 10, 9, 55, 23, 386, DateTimeKind.Utc).AddTicks(3387), null, "cover_default.png", null, false, null, 0, null, null },
+                    { 3, new DateTime(2022, 7, 10, 9, 55, 23, 386, DateTimeKind.Utc).AddTicks(3390), null, "category_default.png", null, false, null, 0, null, null }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_ParentId",
                 table: "Categories",
                 column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_PictureId",
+                table: "Categories",
+                column: "PictureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_ParentId",
@@ -582,14 +626,14 @@ namespace Infrastructure.Migrations
                 column: "SenderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Images_ProductId",
-                table: "Images",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Params_CategoryId",
                 table: "Params",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pictures_ProductDetailId",
+                table: "Pictures",
+                column: "ProductDetailId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductDetails_ProductId",
@@ -631,10 +675,32 @@ namespace Infrastructure.Migrations
                 name: "IX_UserOperationClaims_UserId",
                 table: "UserOperationClaims",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_AvatarId",
+                table: "Users",
+                column: "AvatarId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_CoverImageId",
+                table: "Users",
+                column: "CoverImageId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Categories_Pictures_PictureId",
+                table: "Categories",
+                column: "PictureId",
+                principalTable: "Pictures",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Categories_Pictures_PictureId",
+                table: "Categories");
+
             migrationBuilder.DropTable(
                 name: "AdSpaces");
 
@@ -648,9 +714,6 @@ namespace Infrastructure.Migrations
                 name: "GeneralSettings");
 
             migrationBuilder.DropTable(
-                name: "Images");
-
-            migrationBuilder.DropTable(
                 name: "ProductParams");
 
             migrationBuilder.DropTable(
@@ -658,9 +721,6 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserOperationClaims");
-
-            migrationBuilder.DropTable(
-                name: "ProductDetails");
 
             migrationBuilder.DropTable(
                 name: "Conversations");
@@ -675,13 +735,19 @@ namespace Infrastructure.Migrations
                 name: "OperationClaims");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Pictures");
+
+            migrationBuilder.DropTable(
+                name: "ProductDetails");
+
+            migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Regions");
-
-            migrationBuilder.DropTable(
-                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Categories");

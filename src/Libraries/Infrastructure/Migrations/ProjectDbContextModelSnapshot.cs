@@ -39,15 +39,73 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
                     b.ToTable("AdSpaces");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Code = "",
+                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(1959),
+                            Name = "index_1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Code = "",
+                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(1995),
+                            Name = "index_2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Code = "",
+                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2002),
+                            Name = "products"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Code = "",
+                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2006),
+                            Name = "products_sidebar"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Code = "",
+                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2011),
+                            Name = "product"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Code = "",
+                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2021),
+                            Name = "product_bottom"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Code = "",
+                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2026),
+                            Name = "profile"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Code = "",
+                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2030),
+                            Name = "profile_sidebar"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Catalog.Category", b =>
@@ -75,19 +133,25 @@ namespace Infrastructure.Migrations
                     b.Property<int>("HomepageOrder")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("text");
-
                     b.Property<bool>("IsFeatured")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Keywords")
                         .HasColumnType("text");
 
-                    b.Property<int>("ParentId")
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PictureId")
                         .HasColumnType("integer");
 
                     b.Property<bool>("ShowImageOnNavigation")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("ShowProductsOnIndex")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Slug")
@@ -98,7 +162,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("Visibility")
@@ -107,6 +171,8 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
+
+                    b.HasIndex("PictureId");
 
                     b.ToTable("Categories");
                 });
@@ -152,7 +218,7 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("UserId")
@@ -193,7 +259,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -239,7 +305,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Subject")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -287,7 +353,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(1)
                         .HasColumnType("character varying(1)");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -389,7 +455,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("SiteColor")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Version")
@@ -425,7 +491,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             AppName = "Tezlikle",
-                            CreatedTime = new DateTime(2022, 7, 2, 14, 35, 48, 93, DateTimeKind.Utc).AddTicks(2117),
+                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 386, DateTimeKind.Utc).AddTicks(861),
                             EmailVerification = false,
                             Favicon = "",
                             FeaturedCategories = true,
@@ -435,7 +501,6 @@ namespace Infrastructure.Migrations
                             MenuLimit = 0,
                             PromotedProducts = false,
                             SiteColor = "#FFFF",
-                            UpdatedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = "",
                             WatermarkProductImages = false,
                             WatermarkThumbImages = false
@@ -461,7 +526,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -530,7 +595,7 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Visibility")
@@ -587,7 +652,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -614,7 +679,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("ParamId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Value")
@@ -649,7 +714,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -674,7 +739,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -699,7 +764,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("LanguageId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Value")
@@ -712,7 +777,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("Translates");
                 });
 
-            modelBuilder.Entity("Domain.Media.Image", b =>
+            modelBuilder.Entity("Domain.Media.Picture", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -735,17 +800,49 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("IsMain")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("ProductId")
+                    b.Property<string>("MimeType")
+                        .HasColumnType("text");
+
+                    b.Property<int>("PictureType")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<int?>("ProductDetailId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductDetailId");
 
-                    b.ToTable("Images");
+                    b.ToTable("Pictures");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 386, DateTimeKind.Utc).AddTicks(3353),
+                            ImageDefault = "avatar_default.png",
+                            IsMain = false,
+                            PictureType = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 386, DateTimeKind.Utc).AddTicks(3387),
+                            ImageDefault = "cover_default.png",
+                            IsMain = false,
+                            PictureType = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 386, DateTimeKind.Utc).AddTicks(3390),
+                            ImageDefault = "category_default.png",
+                            IsMain = false,
+                            PictureType = 0
+                        });
                 });
 
             modelBuilder.Entity("Domain.User.OperationClaim", b =>
@@ -762,7 +859,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -782,11 +879,11 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(3000)
                         .HasColumnType("character varying(3000)");
 
-                    b.Property<string>("Avatar")
-                        .HasColumnType("text");
+                    b.Property<int>("AvatarId")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("CoverImage")
-                        .HasColumnType("text");
+                    b.Property<int>("CoverImageId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("CoverImageType")
                         .HasColumnType("text");
@@ -835,7 +932,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Slug")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UserType")
@@ -847,6 +944,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AvatarId");
+
+                    b.HasIndex("CoverImageId");
 
                     b.ToTable("Users");
                 });
@@ -865,7 +966,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("OperationClaimId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("UserId")
@@ -884,11 +985,17 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Catalog.Category", "Parent")
                         .WithMany()
-                        .HasForeignKey("ParentId")
+                        .HasForeignKey("ParentId");
+
+                    b.HasOne("Domain.Media.Picture", "Picture")
+                        .WithMany()
+                        .HasForeignKey("PictureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Parent");
+
+                    b.Navigation("Picture");
                 });
 
             modelBuilder.Entity("Domain.Catalog.Comment", b =>
@@ -1043,15 +1150,30 @@ namespace Infrastructure.Migrations
                     b.Navigation("Language");
                 });
 
-            modelBuilder.Entity("Domain.Media.Image", b =>
+            modelBuilder.Entity("Domain.Media.Picture", b =>
                 {
-                    b.HasOne("Domain.Catalog.Product", "Product")
+                    b.HasOne("Domain.Catalog.ProductDetail", null)
+                        .WithMany("Pictures")
+                        .HasForeignKey("ProductDetailId");
+                });
+
+            modelBuilder.Entity("Domain.User.User", b =>
+                {
+                    b.HasOne("Domain.Media.Picture", "Avatar")
                         .WithMany()
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("AvatarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.HasOne("Domain.Media.Picture", "CoverImage")
+                        .WithMany()
+                        .HasForeignKey("CoverImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Avatar");
+
+                    b.Navigation("CoverImage");
                 });
 
             modelBuilder.Entity("Domain.User.UserOperationClaim", b =>
@@ -1086,6 +1208,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Catalog.ProductDetail", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Pictures");
                 });
 
             modelBuilder.Entity("Domain.User.User", b =>
