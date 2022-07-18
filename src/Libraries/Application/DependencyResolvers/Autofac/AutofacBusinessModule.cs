@@ -22,6 +22,7 @@ public class AutofacBusinessModule:Module
         
         builder.RegisterType<CategoryService>().As<ICategoryService>();
         builder.RegisterType<PictureService>().As<IPictureService>();
+        builder.RegisterType<ProductService>().As<IProductService>();
         
         var assembly = System.Reflection.Assembly.GetExecutingAssembly();
         builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()

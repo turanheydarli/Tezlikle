@@ -1,6 +1,7 @@
 using Application.Core.Mapping;
 using AutoMapper;
 using Domain.Catalog;
+using Microsoft.AspNetCore.Http;
 
 namespace Application.Models.Catalog;
 
@@ -29,7 +30,9 @@ public class ProductModel:IMapFrom<Product>
     public string ContactNumber { get; set; }
     public int ProductDetailId { get; set; }
     public ProductDetail ProductDetail { get; set; }
-    
+
+    public List<IFormFile> PictureFiles { get; set; }
+
     public void Mapping(Profile profile)
     {
         profile.CreateMap<Product, ProductModel>()

@@ -9,5 +9,6 @@ public enum MaxLengthSize
     Currency = 3,
     Content = 3000,
     Keyword = 255,
-    Slug = 120
+    Slug = 120,
+    Phone = 20
 }

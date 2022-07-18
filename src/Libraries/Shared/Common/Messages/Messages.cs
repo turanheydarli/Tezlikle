@@ -31,4 +31,13 @@ public static class Messages
     public const string InvalidSlugError = "invalid_slug_error";
     public const string InvalidCategoryDescriptionError = "invalid_category_description_error";
     public const string UnsupportedMediaFile = "unsupported_media_file";
+    public const string ProductNotAdded = "product_not_added";
+    public const string ProductNotDeleted = "product_not_deleted";
+    public const string ProductNotFound = "product_not_found";
+    public const string ProductDeleted = "product_deleted";
+    public const string ProductNotUpdated = "product_not_updated";
+    public const string InvalidContactNumber = "invalid_contact_number";
+    public const string InvalidProductDescriptionError = "invalid_product_description_error";
+    public const string InvalidProductTitleError = "invalid_product_title_error";
+    public const string InvalidProductKeywordError = "invalid_product_keyword_error";
 }

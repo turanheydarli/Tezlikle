@@ -28,5 +28,5 @@ public class CategoryModelValidator:AbstractValidator<CategoryModel>
         
     }
 
-    private bool IsSupportedImage(IFormFile file) => file.IsSupportedImage();
+    private static bool IsSupportedImage(IFormFile file) => file.IsSupportedImage();
 }
