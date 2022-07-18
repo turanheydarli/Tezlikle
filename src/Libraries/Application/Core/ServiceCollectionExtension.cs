@@ -30,9 +30,9 @@ public static class ServiceCollectionExtension
     public static IServiceCollection AddCustomizedDataStore(this IServiceCollection services)
     {
         
-        services.AddDbContext<ProjectDbContext>(ServiceLifetime.Transient);
+        services.AddDbContext<ProjectDbContext>(ServiceLifetime.Scoped);
 
-        services.AddTransient<DbContext>(provider => provider.GetService<ProjectDbContext>());
+        services.AddScoped<DbContext>(provider => provider.GetService<ProjectDbContext>());
 
         return services;
     }
