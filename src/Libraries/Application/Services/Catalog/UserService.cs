@@ -62,7 +62,7 @@ public class UserService:IUserService
         if (ruleError != null) 
             return new ErrorDataResult<UserModel>(message:ruleError.Message);
 
-        User user = _userRepository.GetById(userModel.Id);
+        var user = _userRepository.GetById(userModel.Id);
 
         if (user == null)
         {
@@ -122,7 +122,7 @@ public class UserService:IUserService
 
     public IDataResult<UserModel> GetUserByUsername(string username)
     {
-        User user = _userRepository.Get(u => u.Username == username);
+        var user = _userRepository.Get(u => u.Username == username);
         
         if (user == null)
         {
@@ -134,7 +134,7 @@ public class UserService:IUserService
 
     public IDataResult<UserModel> GetUserByRefreshToken(string refreshToken)
     {
-        User user = _userRepository.Get(u => u.RefreshToken == refreshToken);
+        var user = _userRepository.Get(u => u.RefreshToken == refreshToken);
         
         if (user == null)
         {
@@ -174,7 +174,7 @@ public class UserService:IUserService
 
     #region Utilities
 
-    public IResult CheckIfUsernameExist(string username)
+    private IResult CheckIfUsernameExist(string username)
     {
         return _userRepository.Any(u => u.Username == username) 
             ? new ErrorResult(Messages.UserAlreadyExist) : new SuccessResult();

@@ -225,6 +225,8 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     Slug = table.Column<string>(type: "text", nullable: true),
                     Sku = table.Column<string>(type: "text", nullable: true),
                     CategoryId = table.Column<int>(type: "integer", nullable: false),
@@ -240,10 +242,7 @@ namespace Infrastructure.Migrations
                     IsSold = table.Column<bool>(type: "boolean", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     IsDraft = table.Column<bool>(type: "boolean", nullable: false),
-                    ContactNumber = table.Column<string>(type: "text", nullable: true),
-                    ProductDetailId = table.Column<int>(type: "integer", nullable: false),
-                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    ContactNumber = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -540,29 +539,29 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "Code", "CreatedTime", "Name", "UpdatedTime" },
                 values: new object[,]
                 {
-                    { 1, "", new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(1959), "index_1", null },
-                    { 2, "", new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(1995), "index_2", null },
-                    { 3, "", new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2002), "products", null },
-                    { 4, "", new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2006), "products_sidebar", null },
-                    { 5, "", new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2011), "product", null },
-                    { 6, "", new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2021), "product_bottom", null },
-                    { 7, "", new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2026), "profile", null },
-                    { 8, "", new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2030), "profile_sidebar", null }
+                    { 1, "", new DateTime(2022, 7, 22, 11, 43, 35, 20, DateTimeKind.Utc).AddTicks(7060), "index_1", null },
+                    { 2, "", new DateTime(2022, 7, 22, 11, 43, 35, 20, DateTimeKind.Utc).AddTicks(7077), "index_2", null },
+                    { 3, "", new DateTime(2022, 7, 22, 11, 43, 35, 20, DateTimeKind.Utc).AddTicks(7083), "products", null },
+                    { 4, "", new DateTime(2022, 7, 22, 11, 43, 35, 20, DateTimeKind.Utc).AddTicks(7087), "products_sidebar", null },
+                    { 5, "", new DateTime(2022, 7, 22, 11, 43, 35, 20, DateTimeKind.Utc).AddTicks(7092), "product", null },
+                    { 6, "", new DateTime(2022, 7, 22, 11, 43, 35, 20, DateTimeKind.Utc).AddTicks(7280), "product_bottom", null },
+                    { 7, "", new DateTime(2022, 7, 22, 11, 43, 35, 20, DateTimeKind.Utc).AddTicks(7284), "profile", null },
+                    { 8, "", new DateTime(2022, 7, 22, 11, 43, 35, 20, DateTimeKind.Utc).AddTicks(7288), "profile_sidebar", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "GeneralSettings",
                 columns: new[] { "Id", "AppName", "CreatedTime", "CustomCssCodes", "CustomJsCodes", "EmailVerification", "FacebookAppId", "FacebookAppSecret", "Favicon", "FeaturedCategories", "GoogleAnalytics", "GoogleClientId", "GoogleClientSecret", "IndexLatestProductsCount", "IndexPromotedProductsCount", "Logo", "LogoEmail", "MailHost", "MailPassword", "MailPort", "MailProtocol", "MailTitle", "MailUsername", "MenuLimit", "PromotedProducts", "RecaptchaLang", "RecaptchaSecretKey", "RecaptchaSiteKey", "SiteColor", "UpdatedTime", "Version", "WatermarkHorAlignment", "WatermarkImageLarge", "WatermarkImageMid", "WatermarkImageSmall", "WatermarkProductImages", "WatermarkThumbImages", "WatermarkVrtAlignment" },
-                values: new object[] { 1, "Tezlikle", new DateTime(2022, 7, 10, 9, 55, 23, 386, DateTimeKind.Utc).AddTicks(861), null, null, false, null, null, "", true, null, null, null, false, false, "", null, null, null, null, null, null, null, 0, false, null, null, null, "#FFFF", null, "", null, null, null, null, false, false, null });
+                values: new object[] { 1, "Tezlikle", new DateTime(2022, 7, 22, 11, 43, 35, 21, DateTimeKind.Utc).AddTicks(7705), null, null, false, null, null, "", true, null, null, null, false, false, "", null, null, null, null, null, null, null, 0, false, null, null, null, "#FFFF", null, "", null, null, null, null, false, false, null });
 
             migrationBuilder.InsertData(
                 table: "Pictures",
                 columns: new[] { "Id", "CreatedTime", "ImageBig", "ImageDefault", "ImageSmall", "IsMain", "MimeType", "PictureType", "ProductDetailId", "UpdatedTime" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 7, 10, 9, 55, 23, 386, DateTimeKind.Utc).AddTicks(3353), null, "avatar_default.png", null, false, null, 0, null, null },
-                    { 2, new DateTime(2022, 7, 10, 9, 55, 23, 386, DateTimeKind.Utc).AddTicks(3387), null, "cover_default.png", null, false, null, 0, null, null },
-                    { 3, new DateTime(2022, 7, 10, 9, 55, 23, 386, DateTimeKind.Utc).AddTicks(3390), null, "category_default.png", null, false, null, 0, null, null }
+                    { 1, new DateTime(2022, 7, 22, 11, 43, 35, 21, DateTimeKind.Utc).AddTicks(9939), null, "avatar_default.png", null, false, null, 0, null, null },
+                    { 2, new DateTime(2022, 7, 22, 11, 43, 35, 21, DateTimeKind.Utc).AddTicks(9954), null, "cover_default.png", null, false, null, 0, null, null },
+                    { 3, new DateTime(2022, 7, 22, 11, 43, 35, 21, DateTimeKind.Utc).AddTicks(9958), null, "category_default.png", null, false, null, 0, null, null }
                 });
 
             migrationBuilder.CreateIndex(

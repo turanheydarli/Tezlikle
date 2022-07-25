@@ -6,6 +6,7 @@ using AutoMapper;
 using Domain.Catalog;
 using Domain.Media;
 using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Shared.Common.Messages;
 using Shared.Utilities.Application;
 using Shared.Utilities.Aspects.Autofac.Authorization;
@@ -55,7 +56,7 @@ public class ProductService:IProductService
         if (productModel.PictureFiles != null)
         {
             var pictures = productModel.PictureFiles
-                .Select(picture => _pictureService.InsertPicture(picture, MediaDefaults.EntityPath, PictureType.Entity))
+                .Select(picture => _pictureService.InsertPicture(picture, MediaDefaults.ImagesPath, PictureType.Entity))
                 .ToList();
 
             productModel.ProductDetail.Pictures = pictures;
@@ -102,7 +103,7 @@ public class ProductService:IProductService
     
     public IDataResult<List<ProductModel>> FilterProducts(string search, int priceMin, int priceMax, int categoryId = 0, int userId = 0)
     {
-        var query = _productRepository.GetMany(null,
+        var query = _productRepository.GetMany(p => !p.IsDeleted,
             p => p.Currency, p => p.Category, p => p.ProductDetail);
 
         if (search != null)
@@ -135,7 +136,7 @@ public class ProductService:IProductService
     [CacheAspect]
     public IDataResult<List<ProductModel>> SearchProducts(string search)
     {
-        var query = _productRepository.GetMany(null,
+        var query = _productRepository.GetMany(p => !p.IsDeleted,
             p => p.Currency, p => p.Category, p => p.ProductDetail);
 
         if (search != null)
@@ -155,8 +156,11 @@ public class ProductService:IProductService
     [CacheAspect]
     public IDataResult<List<ProductModel>> GetAllProducts()
     {
-        var products = _productRepository.GetMany(null, p => p.ProductDetail);
-
+        var products = _productRepository.GetAll
+            .Include(p => p.ProductDetail)
+            .ThenInclude(p => p.Pictures);
+        
+        
         return new SuccessDataResult<List<ProductModel>>(_mapper.Map<List<ProductModel>>(products.ToList()));
     }
 

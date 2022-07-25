@@ -62,13 +62,15 @@ namespace Infrastructure.Persistence.EntityFramework.Context;
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
-            modelBuilder.Entity<Product>()
+           modelBuilder.Entity<Product>()
                 .HasOne(a => a.ProductDetail)
                 .WithOne(a => a.Product)
                 .HasForeignKey<ProductDetail>(c => c.ProductId);
 
-       
+           modelBuilder.Entity<ProductDetail>()
+               .HasMany(p => p.Pictures)
+               .WithOne(p => p.ProductDetail)
+               .HasForeignKey(p => p.ProductDetailId);
             
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }

@@ -42,7 +42,7 @@ public static class ServiceCollectionExtension
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddAutofac();
         services.AddMemoryCache();
-
+        
 
         var tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
 

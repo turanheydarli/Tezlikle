@@ -117,7 +117,7 @@ public class CategoryService:ICategoryService
 
         if (categoryModel.PictureFile != null)
         {
-            categoryModel.Picture = _pictureService.InsertPicture(categoryModel.PictureFile, MediaDefaults.EntityPath, PictureType.Entity);
+            categoryModel.Picture = _pictureService.InsertPicture(categoryModel.PictureFile, MediaDefaults.CategoryPath, PictureType.Entity);
         }
 
         var insertResult = _categoryRepository.Insert(_mapper.Map<Category>(categoryModel));

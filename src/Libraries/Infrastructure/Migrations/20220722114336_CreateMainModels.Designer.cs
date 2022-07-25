@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20220710095524_CreateMainModels")]
+    [Migration("20220722114336_CreateMainModels")]
     partial class CreateMainModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,56 +56,56 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             Code = "",
-                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(1959),
+                            CreatedTime = new DateTime(2022, 7, 22, 11, 43, 35, 20, DateTimeKind.Utc).AddTicks(7060),
                             Name = "index_1"
                         },
                         new
                         {
                             Id = 2,
                             Code = "",
-                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(1995),
+                            CreatedTime = new DateTime(2022, 7, 22, 11, 43, 35, 20, DateTimeKind.Utc).AddTicks(7077),
                             Name = "index_2"
                         },
                         new
                         {
                             Id = 3,
                             Code = "",
-                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2002),
+                            CreatedTime = new DateTime(2022, 7, 22, 11, 43, 35, 20, DateTimeKind.Utc).AddTicks(7083),
                             Name = "products"
                         },
                         new
                         {
                             Id = 4,
                             Code = "",
-                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2006),
+                            CreatedTime = new DateTime(2022, 7, 22, 11, 43, 35, 20, DateTimeKind.Utc).AddTicks(7087),
                             Name = "products_sidebar"
                         },
                         new
                         {
                             Id = 5,
                             Code = "",
-                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2011),
+                            CreatedTime = new DateTime(2022, 7, 22, 11, 43, 35, 20, DateTimeKind.Utc).AddTicks(7092),
                             Name = "product"
                         },
                         new
                         {
                             Id = 6,
                             Code = "",
-                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2021),
+                            CreatedTime = new DateTime(2022, 7, 22, 11, 43, 35, 20, DateTimeKind.Utc).AddTicks(7280),
                             Name = "product_bottom"
                         },
                         new
                         {
                             Id = 7,
                             Code = "",
-                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2026),
+                            CreatedTime = new DateTime(2022, 7, 22, 11, 43, 35, 20, DateTimeKind.Utc).AddTicks(7284),
                             Name = "profile"
                         },
                         new
                         {
                             Id = 8,
                             Code = "",
-                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 385, DateTimeKind.Utc).AddTicks(2030),
+                            CreatedTime = new DateTime(2022, 7, 22, 11, 43, 35, 20, DateTimeKind.Utc).AddTicks(7288),
                             Name = "profile_sidebar"
                         });
                 });
@@ -493,7 +493,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             AppName = "Tezlikle",
-                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 386, DateTimeKind.Utc).AddTicks(861),
+                            CreatedTime = new DateTime(2022, 7, 22, 11, 43, 35, 21, DateTimeKind.Utc).AddTicks(7705),
                             EmailVerification = false,
                             Favicon = "",
                             FeaturedCategories = true,
@@ -575,9 +575,6 @@ namespace Infrastructure.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
-
-                    b.Property<int>("ProductDetailId")
-                        .HasColumnType("integer");
 
                     b.Property<DateTime>("PromotedEnd")
                         .HasColumnType("timestamp with time zone");
@@ -824,7 +821,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 386, DateTimeKind.Utc).AddTicks(3353),
+                            CreatedTime = new DateTime(2022, 7, 22, 11, 43, 35, 21, DateTimeKind.Utc).AddTicks(9939),
                             ImageDefault = "avatar_default.png",
                             IsMain = false,
                             PictureType = 0
@@ -832,7 +829,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 386, DateTimeKind.Utc).AddTicks(3387),
+                            CreatedTime = new DateTime(2022, 7, 22, 11, 43, 35, 21, DateTimeKind.Utc).AddTicks(9954),
                             ImageDefault = "cover_default.png",
                             IsMain = false,
                             PictureType = 0
@@ -840,7 +837,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedTime = new DateTime(2022, 7, 10, 9, 55, 23, 386, DateTimeKind.Utc).AddTicks(3390),
+                            CreatedTime = new DateTime(2022, 7, 22, 11, 43, 35, 21, DateTimeKind.Utc).AddTicks(9958),
                             ImageDefault = "category_default.png",
                             IsMain = false,
                             PictureType = 0

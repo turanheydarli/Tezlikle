@@ -28,7 +28,6 @@ public class ProductModel:IMapFrom<Product>
     public bool IsDeleted { get; set; }
     public bool IsDraft { get; set; }
     public string ContactNumber { get; set; }
-    public int ProductDetailId { get; set; }
     public ProductDetail ProductDetail { get; set; }
 
     public List<IFormFile> PictureFiles { get; set; }
@@ -58,7 +57,6 @@ public class ProductModel:IMapFrom<Product>
             .ForMember(b => b.IsDraft, opt => opt.MapFrom(d => d.IsDraft))
             .ForMember(b => b.ContactNumber, opt => opt.MapFrom(d => d.ContactNumber))
             .ForMember(b => b.ProductDetail, opt => opt.MapFrom(d => d.ProductDetail))
-            .ForMember(b => b.ProductDetailId, opt => opt.MapFrom(d => d.ProductDetailId))
             .ReverseMap();
     }
 }

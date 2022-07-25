@@ -26,8 +26,6 @@ public class Product:BaseEntity
     public bool IsDeleted { get; set; }
     public bool IsDraft { get; set; }
     public string ContactNumber { get; set; }
-    public int ProductDetailId { get; set; }
     public ProductDetail ProductDetail { get; set; }
-    
     
 }

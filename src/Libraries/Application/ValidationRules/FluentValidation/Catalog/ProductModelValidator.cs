@@ -13,6 +13,7 @@ public class ProductModelValidator:AbstractValidator<ProductModel>
     {
         RuleFor(p => p.Slug).Matches(@"[a-zA-Z0-9,.;:_'\\s-]*")
             .MaximumLength((int) MaxLengthSize.Slug)
+            .NotNull().When(p => p.Slug != null)
             .WithMessage(Messages.InvalidSlugError);
         
         RuleFor(p => p.ContactNumber)
